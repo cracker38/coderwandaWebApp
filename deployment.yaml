@@ -1,0 +1,21 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: coderwanda-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: coderwanda
+  template:
+    metadata:
+      labels:
+        app: coderwanda
+    spec:
+      containers:
+        - name: coderwanda-webapp
+          image: coderwanda-webapp:1.0
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 3000
