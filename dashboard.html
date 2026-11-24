@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CODERWANDA | Dashboard</title>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            color: #172033;
+        }
+
+        header {
+            background: #10213d;
+            color: white;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h2 { font-size: 22px; }
+
+        header a {
+            color: white;
+            text-decoration: none;
+        }
+
+        main {
+            width: 92%;
+            max-width: 850px;
+            margin: 45px auto;
+        }
+
+        .welcome {
+            background: linear-gradient(120deg, #10213d, #2563eb);
+            color: white;
+            padding: 35px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+
+        .welcome h1 { margin-bottom: 10px; }
+
+        .profile {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,.06);
+        }
+
+        .profile h2 {
+            color: #10213d;
+            margin-bottom: 20px;
+        }
+
+        .detail {
+            padding: 15px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .detail strong {
+            display: inline-block;
+            width: 130px;
+        }
+
+        .logout {
+            margin-top: 25px;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            background: #dc2626;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .logout:hover { background: #b91c1c; }
+
+        footer {
+            text-align: center;
+            background: #10213d;
+            color: white;
+            padding: 20px;
+            margin-top: 60px;
+        }
+
+        @media(max-width: 600px) {
+            header { flex-direction: column; gap: 10px; }
+            .detail strong { display: block; margin-bottom: 5px; }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h2>CODERWANDA</h2>
+    <a href="index.html">Home</a>
+</header>
+
+<main>
+    <section class="welcome">
+        <h1 id="welcomeName">Welcome!</h1>
+        <p>You have successfully accessed your CODERWANDA dashboard.</p>
+    </section>
+
+    <section class="profile">
+        <h2>Account Information</h2>
+
+        <div class="detail">
+            <strong>Full Name:</strong>
+            <span id="userName"></span>
+        </div>
+
+        <div class="detail">
+            <strong>Email:</strong>
+            <span id="userEmail"></span>
+        </div>
+
+        <div class="detail">
+            <strong>Account ID:</strong>
+            <span id="userId"></span>
+        </div>
+
+        <div class="detail">
+            <strong>Status:</strong>
+            <span>Active</span>
+        </div>
+
+        <button class="logout" id="logoutButton">Logout</button>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2026 CODERWANDA Ltd. All rights reserved.</p>
+</footer>
+
+<script>
+    function loadDashboard() {
+        const session = sessionStorage.getItem("coderwanda_current_user");
+
+        if (!session) {
+            window.location.replace("register.html");
+            return;
+        }
+
+        try {
+            const user = JSON.parse(session);
+
+            if (!user || !user.id || !user.email) {
+                throw new Error("Invalid session");
+            }
+
+            document.getElementById("welcomeName").textContent =
+                "Welcome, " + user.fullname + "!";
+
+            document.getElementById("userName").textContent = user.fullname;
+            document.getElementById("userEmail").textContent = user.email;
+            document.getElementById("userId").textContent = user.id;
+
+        } catch (error) {
+            sessionStorage.removeItem("coderwanda_current_user");
+            window.location.replace("register.html");
+        }
+    }
+
+    document.getElementById("logoutButton").addEventListener("click", function() {
+        sessionStorage.removeItem("coderwanda_current_user");
+        window.location.replace("index.html");
+    });
+
+    loadDashboard();
+</script>
+
+</body>
+</html>
