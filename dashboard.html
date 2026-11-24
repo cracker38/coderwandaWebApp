@@ -1,182 +1,114 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CODERWANDA | Dashboard</title>
-
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: Arial, sans-serif;
-            background: #f1f5f9;
-            color: #172033;
-        }
-
-        header {
-            background: #10213d;
-            color: white;
-            padding: 20px 8%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        header h2 { font-size: 22px; }
-
-        header a {
-            color: white;
-            text-decoration: none;
-        }
-
-        main {
-            width: 92%;
-            max-width: 850px;
-            margin: 45px auto;
-        }
-
-        .welcome {
-            background: linear-gradient(120deg, #10213d, #2563eb);
-            color: white;
-            padding: 35px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-        }
-
-        .welcome h1 { margin-bottom: 10px; }
-
-        .profile {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 5px 20px rgba(0,0,0,.06);
-        }
-
-        .profile h2 {
-            color: #10213d;
-            margin-bottom: 20px;
-        }
-
-        .detail {
-            padding: 15px 0;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .detail strong {
-            display: inline-block;
-            width: 130px;
-        }
-
-        .logout {
-            margin-top: 25px;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 6px;
-            background: #dc2626;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .logout:hover { background: #b91c1c; }
-
-        footer {
-            text-align: center;
-            background: #10213d;
-            color: white;
-            padding: 20px;
-            margin-top: 60px;
-        }
-
-        @media(max-width: 600px) {
-            header { flex-direction: column; gap: 10px; }
-            .detail strong { display: block; margin-bottom: 5px; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CODERWANDA | Dashboard</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Arial,sans-serif;background:#f1f5f9;color:#172033;min-height:100vh}
+    header{background:#10213d;color:#fff;padding:19px 8%;display:flex;justify-content:space-between;align-items:center}
+    header a{color:#fff;text-decoration:none}
+    main{width:min(92%,850px);margin:42px auto}
+    .welcome{background:linear-gradient(120deg,#10213d,#2563eb);color:#fff;padding:32px;border-radius:12px;margin-bottom:22px}
+    .welcome h1{margin-bottom:8px}
+    .panel{background:#fff;padding:30px;border-radius:12px;box-shadow:0 5px 20px #0f172a0d}
+    .panel h2{color:#10213d;margin-bottom:18px}
+    .detail{padding:14px 0;border-bottom:1px solid #e2e8f0;overflow-wrap:anywhere}
+    .detail strong{display:inline-block;width:135px}
+    .logout{margin-top:24px;padding:12px 24px;border:0;border-radius:7px;background:#dc2626;color:#fff;font-weight:700;cursor:pointer}
+    .logout:hover{background:#b91c1c}
+    #notice{display:none;margin-top:18px;padding:14px;border-radius:7px;background:#fff7ed;color:#9a3412}
+    footer{text-align:center;background:#10213d;color:#fff;padding:20px;margin-top:55px}
+    @media(max-width:600px){header{gap:12px;flex-wrap:wrap}.detail strong{display:block;width:auto;margin-bottom:5px}}
+  </style>
 </head>
-
 <body>
-
-<header>
-    <h2>CODERWANDA</h2>
+  <header>
+    <strong>CODERWANDA</strong>
     <a href="index.html">Home</a>
-</header>
+  </header>
 
-<main>
+  <main>
     <section class="welcome">
-        <h1 id="welcomeName">Welcome!</h1>
-        <p>You have successfully accessed your CODERWANDA dashboard.</p>
+      <h1 id="welcomeName">Loading your dashboard…</h1>
+      <p>Your CODERWANDA account overview.</p>
     </section>
 
-    <section class="profile">
-        <h2>Account Information</h2>
-
-        <div class="detail">
-            <strong>Full Name:</strong>
-            <span id="userName"></span>
-        </div>
-
-        <div class="detail">
-            <strong>Email:</strong>
-            <span id="userEmail"></span>
-        </div>
-
-        <div class="detail">
-            <strong>Account ID:</strong>
-            <span id="userId"></span>
-        </div>
-
-        <div class="detail">
-            <strong>Status:</strong>
-            <span>Active</span>
-        </div>
-
-        <button class="logout" id="logoutButton">Logout</button>
+    <section class="panel">
+      <h2>Account Information</h2>
+      <div class="detail"><strong>Full name:</strong><span id="userName">Loading…</span></div>
+      <div class="detail"><strong>Email:</strong><span id="userEmail">Loading…</span></div>
+      <div class="detail"><strong>Account ID:</strong><span id="userId">Loading…</span></div>
+      <div class="detail"><strong>Registered:</strong><span id="registeredAt">Loading…</span></div>
+      <div class="detail"><strong>Status:</strong><span>Active</span></div>
+      <p id="notice" role="alert"></p>
+      <button class="logout" id="logoutButton" type="button">Logout</button>
     </section>
-</main>
+  </main>
 
-<footer>
-    <p>&copy; 2026 CODERWANDA Ltd. All rights reserved.</p>
-</footer>
+  <footer>&copy; <span id="year"></span> CODERWANDA Ltd. All rights reserved.</footer>
 
-<script>
-    function loadDashboard() {
-        const session = sessionStorage.getItem("coderwanda_current_user");
+  <script>
+    "use strict";
 
-        if (!session) {
-            window.location.replace("register.html");
-            return;
-        }
+    const USERS_KEY = "coderwanda_users";
+    const SESSION_KEY = "coderwanda_current_user_id";
 
-        try {
-            const user = JSON.parse(session);
+    document.getElementById("year").textContent = new Date().getFullYear();
 
-            if (!user || !user.id || !user.email) {
-                throw new Error("Invalid session");
-            }
+    function showMissingSession() {
+      document.getElementById("welcomeName").textContent = "No active session";
+      document.getElementById("userName").textContent = "Not available";
+      document.getElementById("userEmail").textContent = "Not available";
+      document.getElementById("userId").textContent = "Not available";
+      document.getElementById("registeredAt").textContent = "Not available";
 
-            document.getElementById("welcomeName").textContent =
-                "Welcome, " + user.fullname + "!";
+      const notice = document.getElementById("notice");
+      notice.textContent = "No registered user session was found. Please register first.";
+      notice.style.display = "block";
 
-            document.getElementById("userName").textContent = user.fullname;
-            document.getElementById("userEmail").textContent = user.email;
-            document.getElementById("userId").textContent = user.id;
-
-        } catch (error) {
-            sessionStorage.removeItem("coderwanda_current_user");
-            window.location.replace("register.html");
-        }
+      document.getElementById("logoutButton").textContent = "Return to registration";
     }
 
-    document.getElementById("logoutButton").addEventListener("click", function() {
-        sessionStorage.removeItem("coderwanda_current_user");
-        window.location.replace("index.html");
+    function loadDashboard() {
+      try {
+        const currentUserId = sessionStorage.getItem(SESSION_KEY);
+        const users = JSON.parse(localStorage.getItem(USERS_KEY) || "[]");
+
+        if (!currentUserId || !Array.isArray(users)) {
+          showMissingSession();
+          return;
+        }
+
+        const user = users.find(item => item.id === currentUserId);
+
+        if (!user) {
+          showMissingSession();
+          return;
+        }
+
+        document.getElementById("welcomeName").textContent = "Welcome, " + user.fullname + "!";
+        document.getElementById("userName").textContent = user.fullname;
+        document.getElementById("userEmail").textContent = user.email;
+        document.getElementById("userId").textContent = user.id;
+
+        const date = new Date(user.registeredAt);
+        document.getElementById("registeredAt").textContent =
+          Number.isNaN(date.getTime()) ? "Not available" : date.toLocaleString();
+
+      } catch (error) {
+        console.error("Dashboard loading error:", error);
+        showMissingSession();
+      }
+    }
+
+    document.getElementById("logoutButton").addEventListener("click", function () {
+      sessionStorage.removeItem(SESSION_KEY);
+      window.location.assign("index.html");
     });
 
     loadDashboard();
-</script>
-
+  </script>
 </body>
 </html>

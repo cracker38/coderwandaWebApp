@@ -1,183 +1,162 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CODERWANDA | Dashboard</title>
-
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: Arial, sans-serif;
-            background: #f1f5f9;
-            color: #172033;
-        }
-
-        header {
-            background: #10213d;
-            color: white;
-            padding: 20px 8%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        header h2 { font-size: 22px; }
-
-        header a {
-            color: white;
-            text-decoration: none;
-        }
-
-        main {
-            width: 92%;
-            max-width: 850px;
-            margin: 45px auto;
-        }
-
-        .welcome {
-            background: linear-gradient(120deg, #10213d, #2563eb);
-            color: white;
-            padding: 35px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-        }
-
-        .welcome h1 { margin-bottom: 10px; }
-
-        .profile {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 5px 20px rgba(0,0,0,.06);
-        }
-
-        .profile h2 {
-            color: #10213d;
-            margin-bottom: 20px;
-        }
-
-        .detail {
-            padding: 15px 0;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .detail strong {
-            display: inline-block;
-            width: 130px;
-        }
-
-        .logout {
-            margin-top: 25px;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 6px;
-            background: #dc2626;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .logout:hover { background: #b91c1c; }
-
-        footer {
-            text-align: center;
-            background: #10213d;
-            color: white;
-            padding: 20px;
-            margin-top: 60px;
-        }
-
-        @media(max-width: 600px) {
-            header { flex-direction: column; gap: 10px; }
-            .detail strong { display: block; margin-bottom: 5px; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CODERWANDA | Create Account</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Arial,sans-serif;background:#f1f5f9;color:#172033;min-height:100vh}
+    header{background:#10213d;padding:20px 8%}
+    header a{color:#fff;text-decoration:none;font-size:23px;font-weight:800}
+    main{width:min(92%,480px);margin:42px auto;background:#fff;padding:34px;border-radius:12px;box-shadow:0 8px 30px #0f172a12}
+    h1{text-align:center;color:#10213d;margin-bottom:8px}
+    .subtitle{text-align:center;color:#64748b;margin-bottom:25px}
+    label{display:block;font-weight:700;margin:15px 0 7px}
+    input{width:100%;padding:13px;border:1px solid #cbd5e1;border-radius:7px;font-size:15px}
+    input:focus{outline:2px solid #bfdbfe;border-color:#2563eb}
+    button{width:100%;margin-top:24px;padding:14px;background:#2563eb;color:#fff;border:0;border-radius:7px;font-weight:700;font-size:16px;cursor:pointer}
+    button:disabled{opacity:.65;cursor:wait}
+    #message{display:none;margin-top:16px;padding:12px;border-radius:7px;font-size:14px;line-height:1.5}
+    #message.error{display:block;background:#fef2f2;color:#b91c1c}
+    #message.success{display:block;background:#f0fdf4;color:#166534}
+    .back{text-align:center;margin-top:20px}
+    .back a{color:#2563eb;text-decoration:none}
+    .notice{font-size:12px;color:#64748b;margin-top:18px;line-height:1.5}
+  </style>
 </head>
-
 <body>
+  <header><a href="index.html">CODERWANDA</a></header>
+  <main>
+    <h1>Create Account</h1>
+    <p class="subtitle">Register to access the CODERWANDA platform.</p>
 
-<header>
-    <h2>CODERWANDA</h2>
-    <a href="index.html">Home</a>
-</header>
+    <form id="registerForm">
+      <label for="fullname">Full name</label>
+      <input id="fullname" name="fullname" type="text" autocomplete="name"
+             minlength="2" maxlength="80" placeholder="Enter your full name" required>
 
-<main>
-    <section class="welcome">
-        <h1 id="welcomeName">Welcome!</h1>
-        <p>You have successfully accessed your CODERWANDA dashboard.</p>
-    </section>
+      <label for="email">Email address</label>
+      <input id="email" name="email" type="email" autocomplete="email"
+             maxlength="120" placeholder="name@example.com" required>
 
-    <section class="profile">
-        <h2>Account Information</h2>
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" autocomplete="new-password"
+             minlength="6" maxlength="100" placeholder="At least 6 characters" required>
 
-        <div class="detail">
-            <strong>Full Name:</strong>
-            <span id="userName"></span>
-        </div>
+      <label for="confirmPassword">Confirm password</label>
+      <input id="confirmPassword" name="confirmPassword" type="password"
+             autocomplete="new-password" minlength="6" maxlength="100"
+             placeholder="Enter password again" required>
 
-        <div class="detail">
-            <strong>Email:</strong>
-            <span id="userEmail"></span>
-        </div>
+      <button id="submitButton" type="submit">Create Account</button>
+      <p id="message" role="status" aria-live="polite"></p>
+    </form>
 
-        <div class="detail">
-            <strong>Account ID:</strong>
-            <span id="userId"></span>
-        </div>
+    <p class="back"><a href="index.html">← Back to home</a></p>
+    <p class="notice">Training demonstration only: this browser-only version stores sample account data locally. Do not use a real password or sensitive personal information.</p>
+  </main>
 
-        <div class="detail">
-            <strong>Status:</strong>
-            <span>Active</span>
-        </div>
+  <script>
+    "use strict";
 
-        <button class="logout" id="logoutButton">Logout</button>
-    </section>
-</main>
+    const USERS_KEY = "coderwanda_users";
+    const SESSION_KEY = "coderwanda_current_user_id";
 
-<footer>
-    <p>&copy; 2026 CODERWANDA Ltd. All rights reserved.</p>
-</footer>
+    const form = document.getElementById("registerForm");
+    const message = document.getElementById("message");
+    const submitButton = document.getElementById("submitButton");
 
-<script>
-    function loadDashboard() {
-        const session = sessionStorage.getItem("coderwanda_current_user");
-
-        if (!session) {
-            window.location.replace("register.html");
-            return;
-        }
-
-        try {
-            const user = JSON.parse(session);
-
-            if (!user || !user.id || !user.email) {
-                throw new Error("Invalid session");
-            }
-
-            document.getElementById("welcomeName").textContent =
-                "Welcome, " + user.fullname + "!";
-
-            document.getElementById("userName").textContent = user.fullname;
-            document.getElementById("userEmail").textContent = user.email;
-            document.getElementById("userId").textContent = user.id;
-
-        } catch (error) {
-            sessionStorage.removeItem("coderwanda_current_user");
-            window.location.replace("register.html");
-        }
+    function showMessage(text, type) {
+      message.textContent = text;
+      message.className = type;
     }
 
-    document.getElementById("logoutButton").addEventListener("click", function() {
-        sessionStorage.removeItem("coderwanda_current_user");
-        window.location.replace("index.html");
+    function readUsers() {
+      const saved = localStorage.getItem(USERS_KEY);
+      if (!saved) return [];
+      const users = JSON.parse(saved);
+      if (!Array.isArray(users)) throw new Error("Saved account data is not valid.");
+      return users;
+    }
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      if (!form.reportValidity()) return;
+
+      const fullname = document.getElementById("fullname").value.trim();
+      const email = document.getElementById("email").value.trim().toLowerCase();
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+
+      if (fullname.length < 2) {
+        showMessage("Please enter your full name (at least 2 characters).", "error");
+        return;
+      }
+      if (password.length < 6) {
+        showMessage("Your password must contain at least 6 characters.", "error");
+        return;
+      }
+      if (password !== confirmPassword) {
+        showMessage("The passwords do not match. Please try again.", "error");
+        return;
+      }
+
+      submitButton.disabled = true;
+      submitButton.textContent = "Creating account…";
+
+      try {
+        const users = readUsers();
+
+        if (users.some(user => user.email === email)) {
+          showMessage("This email is already registered. Use a different email address.", "error");
+          return;
+        }
+
+        const newUser = {
+          id: (window.crypto && crypto.randomUUID)
+            ? crypto.randomUUID()
+            : "user-" + Date.now() + "-" + Math.random().toString(16).slice(2),
+          fullname,
+          email,
+          password,
+          registeredAt: new Date().toISOString()
+        };
+
+        users.push(newUser);
+
+        // Save the account record for the future login feature.
+        localStorage.setItem(USERS_KEY, JSON.stringify(users));
+
+        // Save only the user's ID as the current browser-tab session.
+        sessionStorage.setItem(SESSION_KEY, newUser.id);
+
+        // Verify that both storage writes succeeded before navigating.
+        const savedUsers = readUsers();
+        const savedSessionId = sessionStorage.getItem(SESSION_KEY);
+        if (!savedUsers.some(user => user.id === newUser.id) || savedSessionId !== newUser.id) {
+          throw new Error("The account could not be verified in browser storage.");
+        }
+
+        showMessage("Account created successfully. Opening your dashboard…", "success");
+        form.reset();
+
+        window.setTimeout(() => {
+          window.location.assign("dashboard.html");
+        }, 700);
+
+      } catch (error) {
+        console.error("Registration error:", error);
+        showMessage(
+          "Unable to save your account. Check that browser storage is enabled, then try again.",
+          "error"
+        );
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = "Create Account";
+      }
     });
-
-    loadDashboard();
-</script>
-
+  </script>
 </body>
 </html>
-
